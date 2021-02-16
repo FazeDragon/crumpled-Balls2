@@ -11,6 +11,10 @@ function preload()
 
 function setup() {
 	createCanvas(800, 700);
+	
+	engine = Engine.create();
+	world = engine.world;
+
 
 	bin = createSprite(580,610,20,120);
 	bin.shapeColor = "green";
@@ -26,16 +30,8 @@ function setup() {
 	floor = createSprite(140,700,1200,20);
 	floor.shapeColor = "brown";
 
-	paper = createSprite(40,680,40,40);
-	paper.shapeColor = "red";
-
-
-
-	engine = Engine.create();
-	world = engine.world;
-
-	//Create the Bodies Here.
-
+	paper = new Ball(150,650,40);
+    
 
 	Engine.run(engine);
   
@@ -46,9 +42,14 @@ function draw() {
   rectMode(CENTER);
   background(0);
   
+  paper.display();
   drawSprites();
  
 }
 
-
+function keyPressed(){
+	if(keyCode === UP_ARROW){
+		Matter.Body.applyForce(paper.body,paper.body.position,{x:20,y:20});
+	}
+}
 
